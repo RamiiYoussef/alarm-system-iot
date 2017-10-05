@@ -1,0 +1,185 @@
+<html>
+<head>
+	<title>Door Interactive</title>
+	<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="public/css/style.css">
+</head>
+<body>
+
+	<div id="main_door" class="right_side">
+		<h3>Main Door tracking</h3>
+		<hr>
+		<div class="status">
+			<label class="door_status">Door Status : </label>
+			<div class="status_color">
+				<div class="box red hide">Close</div>
+				<div class="box green">Open</div>
+			</div>
+		</div>
+		<div class="date_status">
+			<label>In Date : </label>
+			<label>2:10:34 2PM </label>
+		</div>
+		<div class="interactive_total_today">
+			<label>Total interactive Today : <span class="interactive_count_today">19</span></label>
+		</div>
+		<div class="interactive_label">
+			<label>Last 7 interactive ....</label>
+		</div>
+		<div class="table">
+			<table border="0" cellspacing="0" cellpadding="4">
+				<thead>
+				<tr>
+					<td class="table_titles id">ID</td>
+					<td class="table_titles status">Status</td>
+					<td class="table_titles date-time">Date and Time</td>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td class="table_titles">1</td>
+					<td class="table_titles">Open</td>
+					<td class="table_titles">2:10:34 2PM</td>
+				</tr>
+				<tr>
+					<td class="table_titles">1</td>
+					<td class="table_titles">Open</td>
+					<td class="table_titles">2:10:34 2PM</td>
+				</tr>
+				<tr>
+					<td class="table_titles">1</td>
+					<td class="table_titles">Open</td>
+					<td class="table_titles">2:10:34 2PM</td>
+				</tr>
+				<tr>
+					<td class="table_titles">1</td>
+					<td class="table_titles">Open</td>
+					<td class="table_titles">2:10:34 2PM</td>
+				</tr>
+				<tr>
+					<td class="table_titles">1</td>
+					<td class="table_titles">Open</td>
+					<td class="table_titles">2:10:34 2PM</td>
+				</tr>
+				<tr>
+					<td class="table_titles">1</td>
+					<td class="table_titles">Open</td>
+					<td class="table_titles">2:10:34 2PM</td>
+				</tr>
+				<tr>
+					<td class="table_titles">1</td>
+					<td class="table_titles">Open</td>
+					<td class="table_titles">2:10:34 2PM</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div id="glass_door" class="left_side">
+		<h3>Glass Door tracking</h3>
+		<hr>
+		<div class="status">
+			<label class="door_status">Door Status : </label>
+			<div class="status_color">
+				<div class="box red">Close</div>
+				<div class="box green hide">Open</div>
+			</div>
+		</div>
+		<div class="date_status">
+			<label>In Date : </label>
+			<label>2:10:34 2PM </label>
+		</div>
+		<div class="interactive_total_today">
+			<label>Total interactive Today : <span id="interactive_count_today">30</span></label>
+		</div>
+		<div class="interactive_label">
+			<label>Last 7 interactive ....</label>
+		</div>
+		<div class="table">
+			<table border="0" cellspacing="0" cellpadding="4">
+				<thead>
+					<tr>
+						<td class="table_titles id">ID</td>
+						<td class="table_titles status">Status</td>
+						<td class="table_titles date-time">Date and Time</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="table_titles">1</td>
+						<td class="table_titles">Open</td>
+						<td class="table_titles">2:10:34 2PM</td>
+					</tr>
+					<tr>
+						<td class="table_titles">1</td>
+						<td class="table_titles">Open</td>
+						<td class="table_titles">2:10:34 2PM</td>
+					</tr>
+					<tr>
+						<td class="table_titles">1</td>
+						<td class="table_titles">Open</td>
+						<td class="table_titles">2:10:34 2PM</td>
+					</tr>
+					<tr>
+						<td class="table_titles">1</td>
+						<td class="table_titles">Open</td>
+						<td class="table_titles">2:10:34 2PM</td>
+					</tr>
+					<tr>
+						<td class="table_titles">1</td>
+						<td class="table_titles">Open</td>
+						<td class="table_titles">2:10:34 2PM</td>
+					</tr>
+					<tr>
+						<td class="table_titles">1</td>
+						<td class="table_titles">Open</td>
+						<td class="table_titles">2:10:34 2PM</td>
+					</tr>
+					<tr>
+						<td class="table_titles">1</td>
+						<td class="table_titles">Open</td>
+						<td class="table_titles">2:10:34 2PM</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+<br>
+<br>
+<br>
+<br>
+    <time></time>
+    <div id="container">Loading ...</div>
+    <script src="socket.io/socket.io.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script>
+
+        // create a new websocket
+        var socket = io.connect('http://localhost:8000');
+        // on message received we print all the data inside the #container div
+        socket.on('notification', function (data) {
+        var logList = "<dl>";
+        $.each(data.doorLogs, function(index, user){
+            logList += "<dt>" + user.door_status + "</dt>\n" +
+                         "<dd>" + user.log_date + "\n" +
+                            "<figure> <img class='img-polaroid' width='50px' src='" + user.door_type_id + "' /></figure>"
+                         "</dd>";
+        });
+        logList += "</dl>";
+        $('#container').html(logList);
+   
+        $('time').html('Last Update:' + data.time);
+      });
+    </script>
+</body>
+<footer>
+	<div class="footer">
+	<strong>Powered by Rami Mohep </strong> - All Rights Reserved ©2017.
+	</div>
+</footer>
+<html>
+
+
+
