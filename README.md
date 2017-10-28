@@ -1,32 +1,21 @@
 # Raspberry Pi Switch
-Control your lights with a Raspberry Pi and a webbrowser
-
-##Demo on youtube
-https://www.youtube.com/watch?v=VFQtGCU3Tfk
+Get Door InterActive when open/close with a Raspberry Pi and a webbrowser and sending notify mail
 
 ##How to install
 
 Log in on your Raspberry Pi and clone this repositry:
 
 `
-git clone https://github.com/leonvandenbeukel/raspberryswitch.git
+git clone https://github.com/xrami/Door-Interactive
 `
 
 Change to the directory and then install the npm gpio library:
 
-`cd raspberryswitch`
+`cd Door-Interactive`
 
 Then:
 
 `npm install gpio`
-
-Start the server:
-
-`sudo nodejs server.js`
-
-Browse to:
-
-`http://<your raspberry ip address>:3000`
 
 Have fun!
 
